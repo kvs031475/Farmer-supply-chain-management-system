@@ -1,301 +1,239 @@
-AgriConnect – Farmer Supply Chain Management System
+# Digital Supply Chain Management System
 
-AgriConnect is a desktop-based farmer supply chain management system developed using Java Swing and MySQL. The system connects farmers, customers, distributors, and administrators on a single platform to manage agricultural products, orders, deliveries, and user accounts.
+## Project Overview
 
-The project aims to simplify the process of selling agricultural products by providing separate dashboards and functionalities for each type of user.
+The **Digital Supply Chain Management System** is a Java and MySQL-based system developed to manage the movement of agricultural products between **farmers, administrators, distributors, and consumers**.
 
-Features
-👨‍🌾 Farmer Module
-Farmer login and authentication
-Farmer dashboard
-Add and manage agricultural products
-View product details
-Manage available product quantity
-Track products associated with the farmer
-🛒 Customer Module
-Customer registration and login
-Browse available agricultural products
-Add products to cart
-Remove products from cart
-Calculate order subtotal
-Automatic 5% GST calculation
-Platform fee calculation
-Place orders
-View order history
-Generate/view bills
-🚚 Distributor Module
-Distributor login
-View assigned orders
-Track order status
-Mark orders as delivered
-Maintain delivery history
-👨‍💼 Admin Module
-Admin login
-Admin dashboard
-Manage farmers
-Manage customers
-Manage distributors
-Manage agricultural products
-Manage orders
-View account-related information
-System Workflow
-                    ┌──────────────────┐
-                    │      Admin       │
-                    └────────┬─────────┘
-                             │
-          ┌──────────────────┼──────────────────┐
-          ↓                  ↓                  ↓
-     Manage Farmers    Manage Customers   Manage Distributors
-          │                  │                  │
-          └──────────────────┼──────────────────┘
-                             ↓
-                    ┌──────────────────┐
-                    │    Products      │
-                    │  farmer_products │
-                    └────────┬─────────┘
-                             ↓
-                    ┌──────────────────┐
-                    │    Customer      │
-                    │ Browse Products  │
-                    │   Add to Cart    │
-                    └────────┬─────────┘
-                             ↓
-                    ┌──────────────────┐
-                    │   Place Order    │
-                    └────────┬─────────┘
-                             ↓
-                    ┌──────────────────┐
-                    │    Distributor   │
-                    │  Assigned Order  │
-                    └────────┬─────────┘
-                             ↓
-                    ┌──────────────────┐
-                    │     Delivered    │
-                    └────────┬─────────┘
-                             ↓
-                    ┌──────────────────┐
-                    │  Order History   │
-                    └──────────────────┘
-Technology Stack
-Technology	Purpose
-Java	Core application development
-Java Swing	Desktop graphical user interface
-MySQL	Database management
-JDBC	Java–MySQL database connectivity
-Jakarta Mail	Email functionality
-Gson	JSON processing
-JCalendar	Date/calendar components
-JGoodies	UI-related components
-JUnit	Testing support
-Project Structure
-FinalMiniProject/
-│
-├── AdminDashboard.java
-├── AdminLogin.java
-├── AdminOrdersPage.java
-│
-├── FarmerDashboard.java
-├── FarmerLogin.java
-├── ManageFarmers.java
-│
-├── CustomerDashboard.java
-├── CustomerLogin.java
-├── SignUp.java
-├── CartPage.java
-├── BillPage.java
-├── OrderHistoryPage.java
-│
-├── DistributorDashboard.java
-├── DistributorLogin.java
-│
-├── ManageCustomers.java
-├── ManageDistributors.java
-├── ManageProducts.java
-├── AccountsPage.java
-├── PendingOrdersPage.java
-├── LoginPage.java
-│
-├── SendEmail.java
-├── dependency.txt
-│
-├── jcalendar-1.4.jar
-├── jgoodies-common-1.2.0.jar
-├── jgoodies-looks-2.4.1.jar
-├── junit-4.6.jar
-├── gson-2.11.0.jar
-├── jm.jar
-│
-└── Images/
-    ├── cabbage.jpeg
-    ├── carrots-1851424_1280.jpg
-    ├── potatoes-116008750-596413603df78cdc68c061f3.jpg
-    └── ...
-Database
+The project provides separate modules for each participant in the supply chain. Instead of handling product listing, quality checking, transportation, ordering, and feedback separately, the system brings these activities together into one platform.
 
-The application uses MySQL with a database named:
+The main focus of the project is to improve **product management, order management, logistics coordination, and communication between supply-chain participants**.
 
-agriconnect
+## Problem Addressed
 
-The Java application connects using JDBC.
+The traditional agricultural supply chain can involve multiple intermediaries between farmers and consumers. This can create difficulties in:
 
-The main database entities used by the application include:
+* Managing product information
+* Maintaining transparent pricing
+* Coordinating transportation and storage
+* Tracking orders
+* Maintaining product quality
+* Collecting consumer feedback
 
-admins
-farmers
-customers
-distributors
-farmer_products
-orders
-order_items
-order_history
-Basic Database Setup
+This project provides a centralized system to manage these activities.
 
-Create the database in MySQL:
+---
 
-CREATE DATABASE agriconnect;
+# System Modules
 
-Then create/import the required tables before running the application.
+## 1. Farmer Module
 
-Note: The current source code contains a local MySQL username and password. For security, these credentials should be moved to a configuration file or environment variables before publishing the project publicly.
+The farmer is the starting point of the supply chain.
 
-Requirements
+The farmer can:
 
-Before running the project, install:
+* Upload available agricultural produce
+* Add product details
+* Set the price of the produce
+* Manage listed products
+* Track customer orders
 
-Java JDK 8 or later
-MySQL Server
-A Java IDE such as:
-IntelliJ IDEA
-Eclipse
-NetBeans
-Required .jar libraries included in the repository
-MySQL JDBC Driver
-How to Run
-1. Clone the Repository
-git clone https://github.com/yourusername/AgriConnect.git
+### Farmer Flow
 
-Navigate to the project directory:
+**Farmer Login → Add Produce → Enter Product Details → Set Price → Product Available for Consumers → Receive/Track Orders**
 
-cd AgriConnect
-2. Configure MySQL
+Once a farmer adds a product, the product becomes part of the system and can proceed through the supply chain.
 
-Start MySQL and create the database:
+---
 
-CREATE DATABASE agriconnect;
+## 2. Admin Module
 
-Create/import all required tables and insert the required initial records.
+The admin acts as the central management component of the system.
 
-3. Configure Database Connection
+The admin is responsible for:
 
-The application currently uses JDBC connections similar to:
+* Managing system operations
+* Performing quality checks
+* Coordinating logistics
+* Managing information between different modules
 
-jdbc:mysql://localhost:3306/agriconnect
+### Admin Flow
 
-Update the username and password in the Java source files according to your local MySQL configuration.
+**Admin Login → View Products/Orders → Quality Check → Coordinate Logistics → Monitor Operations**
 
-4. Add Required Libraries
+The admin helps ensure that products and orders move properly between the different participants.
 
-Add the provided .jar files to the project's classpath.
+---
 
-The project includes libraries such as:
+## 3. Distributor Module
 
-jcalendar-1.4.jar
-jgoodies-common-1.2.0.jar
-jgoodies-looks-2.4.1.jar
-gson-2.11.0.jar
-junit-4.6.jar
-jm.jar
+The distributor handles the movement and storage of agricultural products.
 
-For email functionality, the project also requires:
+The distributor manages:
 
-Jakarta Mail 2.0.1
-5. Run the Application
+* Transportation
+* Product movement
+* Storage coordination
+* Delivery-related activities
 
-Start the application from the appropriate login/main class in your IDE.
+### Distributor Flow
 
-The available modules can then be accessed through their respective login pages.
+**Receive Product/Order Information → Plan Transportation → Manage Storage → Move Product → Support Delivery**
 
-Order Processing
+This module connects the product supplied by the farmer with the consumer's order.
 
-The order process follows these steps:
+---
 
-Customer logs into the system.
-Customer browses available farmer products.
-Customer selects products and quantities.
-Products are added to the shopping cart.
-The system calculates:
-Subtotal
-5% GST
-Platform fee
-Final order total
-Customer places the order.
-Order is stored in the MySQL database.
-Distributor receives the assigned order.
-Distributor updates the order status.
-Once delivered, the order is recorded in order history.
-Customer can view previous orders.
-User Roles
-User	Main Responsibilities
-Admin	Manage users, products, and orders
-Farmer	Manage agricultural products
-Customer	Browse products and place orders
-Distributor	Handle assigned orders and deliveries
-Key Java Concepts Used
+## 4. Consumer Module
 
-This project demonstrates several Java concepts, including:
+The consumer is the final buyer in the supply chain.
 
-Object-Oriented Programming
-Classes and Objects
-Inheritance
-Event Handling
-Exception Handling
-Java Swing GUI
-JDBC
-SQL Queries
-Prepared Statements
-Database Transactions
-JTable and GUI components
-Modular application design
-Security Considerations
+The consumer can:
 
-For a production-ready version, the following improvements are recommended:
+* Browse available agricultural products
+* View product information
+* Place orders
+* Process payments
+* Provide ratings and feedback
 
-Store database credentials using environment variables.
-Never commit email passwords or API credentials to GitHub.
-Hash user passwords instead of storing plain-text passwords.
-Use configuration files for database settings.
-Validate user input before executing database operations.
-Use proper role-based authorization.
-Remove sensitive credentials from source code.
+### Consumer Flow
 
-Important: If any real Gmail App Password has ever been committed to a public repository, revoke it and generate a new one.
+**Browse Products → Select Product → Place Order → Payment → Product Distribution → Receive Product → Give Feedback**
 
-Future Enhancements
+The consumer therefore interacts with the system from product selection until the completion of the order.
 
-Possible improvements for future versions include:
+---
 
-Web-based or mobile interface
-Online payment integration
-Real-time order tracking
-Product search and filtering
-Farmer analytics dashboard
-Sales and revenue reports
-Inventory alerts
-SMS/email order notifications
-Product reviews and ratings
-Cloud database integration
-REST API backend
-Secure authentication with password hashing
-Data visualization for sales and supply-chain analysis
-Project Objective
+## 5. Feedback Module
 
-The primary objective of AgriConnect is to provide a centralized platform for managing the agricultural supply chain. It helps connect farmers with customers while providing distributors with an organized method of handling deliveries and administrators with tools to manage the overall system.
+The feedback system collects information from consumers after their purchase.
 
-Contributors
+Consumers can provide:
 
-Developed as a Mini Project
+* Product ratings
+* Quality feedback
+* General feedback about their purchase
 
-Java
-MySQL
-Java Swing
-JDBC
+This feedback can be used to support continuous improvement of product and service quality.
+
+### Feedback Flow
+
+**Order Completed → Consumer Provides Rating/Feedback → Feedback Recorded → Quality Improvement**
+
+---
+
+# Complete System Workflow
+
+The complete project workflow can be understood as a sequence of activities:
+
+### Step 1 – Product Registration
+
+The **farmer uploads agricultural produce** into the system and provides relevant product information and pricing.
+
+**Farmer → Add Produce → Set Price**
+
+### Step 2 – Product Management
+
+The product information is stored in the **MySQL database** and becomes available within the system.
+
+**Product Details → Java Application → MySQL Database**
+
+### Step 3 – Quality Management
+
+The **admin performs quality checks** and coordinates the next stages of the supply chain.
+
+**Product → Admin → Quality Check**
+
+### Step 4 – Consumer Ordering
+
+The consumer browses the available products and selects the required produce.
+
+**Consumer → Browse Products → Select Product → Place Order**
+
+### Step 5 – Payment
+
+The consumer proceeds with payment processing for the selected order.
+
+**Order → Payment Processing → Order Confirmation**
+
+### Step 6 – Logistics
+
+The order information is coordinated with the distributor.
+
+The distributor manages the required **transportation and storage activities**.
+
+**Confirmed Order → Distributor → Transportation/Storage**
+
+### Step 7 – Product Delivery
+
+The product moves through the distribution process toward the consumer.
+
+**Farmer → Distributor → Consumer**
+
+### Step 8 – Feedback
+
+After receiving the product, the consumer can provide a rating and feedback.
+
+**Consumer → Rating/Feedback → System**
+
+---
+
+# Overall Architecture
+
+The project can be represented as:
+
+**Farmer**
+↓
+**Product Listing & Pricing**
+↓
+**Admin / Quality Check**
+↓
+**MySQL Database**
+↓
+**Consumer Order**
+↓
+**Distributor / Logistics**
+↓
+**Product Delivery**
+↓
+**Consumer Feedback**
+
+The Java application acts as the main application layer connecting these different operations, while MySQL stores the system's data and SQL is used for database operations.
+
+---
+
+# Key Functionalities
+
+* Farmer product registration
+* Product and pricing management
+* Customer order management
+* Quality checking
+* Transportation management
+* Storage coordination
+* Payment processing
+* Product delivery workflow
+* Consumer ratings and feedback
+* Centralized database management
+
+---
+
+# Technology Stack
+
+| Technology | Purpose                                  |
+| ---------- | ---------------------------------------- |
+| **Java**   | Application logic and system development |
+| **MySQL**  | Data storage and management              |
+| **SQL**    | Database queries and operations          |
+
+The project presentation specifically identifies Java for application logic, SQL for database queries, and MySQL for data storage.
+
+---
+
+# Project Focus
+
+The project focuses on creating a **centralized digital supply-chain system** where each participant has a defined role.
+
+Instead of treating farmers, consumers, administration, and distribution as separate activities, the system connects them through a common workflow:
+
+**Produce → Quality Check → Order → Logistics → Delivery → Feedback**
+
+This provides a structured approach to managing agricultural products from their initial listing by the farmer through the consumer's purchase and feedback.
